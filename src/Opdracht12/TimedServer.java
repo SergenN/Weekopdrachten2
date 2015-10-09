@@ -26,24 +26,24 @@ class Worker extends Thread {
             BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             PrintWriter pout = new PrintWriter(connection.getOutputStream(), true);
 
-            pout.println("YUP1");
+            pout.println("Resources aanvragen");
 
             resources += 2;
             int result = maxRes.decreaseCount(resources, this);
 
             if(result == -1){
+                pout.println("Er zijn geen resources beschikbaar!, wachten op resources");
                 sem.acquire(2);
             }
 
-            pout.println("YUP2");
+            pout.println("Recourses verkregen.");
 
             for(int i = 0; i < 10; i++) {
                 Thread.sleep(1500);
                 pout.println(i);
             }
 
-            pout.println("wachten");
-
+            pout.println("Gedoe uitgevoerd, wachten...");
             String line;
             boolean running = true;
             while(running){
@@ -56,10 +56,9 @@ class Worker extends Thread {
                 }
             }
 
-            pout.println("reachincrease");
+            System.out.println("Client heeft de connectie verbroken");
             maxRes.increaseCount(resources);
             resources -= resources;
-            pout.println("reachendincrease");
 
         }
         catch (IOException ioe) {}
@@ -97,8 +96,9 @@ public class TimedServer {
             ServerSocket server = new ServerSocket(PORT);
 
             while (true) {
+                System.out.println("Wachten op connecties");
                 connection = server.accept();
-                System.out.println("Client connected");
+                System.out.println("Client heeft connectie gemaakt");
                 Thread worker = new Thread(new Worker(connection, maxRes));
                 worker.start();
             }
