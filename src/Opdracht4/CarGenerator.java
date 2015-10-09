@@ -1,6 +1,8 @@
-package Opdracht3;
+package Opdracht4;
 
-import java.util.*;
+import java.util.Random;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Sergen Nurel

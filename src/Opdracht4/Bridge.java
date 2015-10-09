@@ -1,4 +1,4 @@
-package Opdracht3;
+package Opdracht4;
 
 import java.util.concurrent.Semaphore;
 
